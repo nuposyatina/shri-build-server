@@ -1,0 +1,10 @@
+{
+  "name": "shri-build-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Anna Tsukanova <nuposyatina@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": ""
+  }
+}
