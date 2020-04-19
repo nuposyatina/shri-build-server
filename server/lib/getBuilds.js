@@ -1,4 +1,5 @@
 const getHttpsAgent = require('./getHttpsAgent');
+const { apiBaseUrl } = require('../server-conf.json');
 
 module.exports = () => {
   fetch(`${apiBaseUrl}build/list`, {
@@ -8,8 +9,5 @@ module.exports = () => {
     agent: getHttpsAgent()
   }).
   then(result => result.json()).
-  then(result => {
-    console.info('Builds received');
-    //билды тоже надо куда-то сохранить
-  })
+  then(result => result.data)
 }
