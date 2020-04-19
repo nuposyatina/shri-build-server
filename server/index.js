@@ -1,29 +1,15 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const { port, apiBaseUrl, apiToken } = require('./server-conf.json');
+const cors = require('./middlewares/cors');
+const notifyAgent = require('./http/notify-agent');
 
 const app = express();
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  next();
-});
+app.use(cors);
+app.use(express.json());
 
-const getSettings = () => {
-  fetch('https://hw.shri.yandex/api/conf', {
-    headers: { 
-      'Authorization': `Bearer ${apiToken}`
-    },
-    agent: agent
-  })
-  .then((result) => result.json())
-  .then((settings) => {
-    console.info('Settings received');
-    //нужно куда-то сохранить настройки, чтобы их откуда-то брать потом
-  })
-};
+app.post('/notify-agent', notifyAgent);
+
+
 
 app.listen(port, () => console.info(`Server started on port ${port}`));
