@@ -1,13 +1,15 @@
 const getHttpsAgent = require('./getHttpsAgent');
-const { apiBaseUrl } = require('../server-conf.json');
+const { apiBaseUrl, apiToken } = require('../server-conf.json');
+const fetch = require('node-fetch');
 
 module.exports = () => {
-  fetch(`${apiBaseUrl}build/list`, {
+  return fetch(`${apiBaseUrl}build/list`, {
     headers: { 
-      'Authorization': `Bearer ${AUTH_TOKEN}`
+      'Authorization': `Bearer ${apiToken}`,
+      'Content-Type': 'application/json'
     },
     agent: getHttpsAgent()
   }).
   then(result => result.json()).
-  then(result => result.data)
-}
+  then(result => result.data);
+};
