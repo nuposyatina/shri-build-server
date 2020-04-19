@@ -1,5 +1,4 @@
 const express = require('express');
-const fetch = require('node-fetch');
 const { port, apiBaseUrl, apiToken } = require('./server-conf.json');
 const cors = require('./middlewares/cors');
 const notifyAgent = require('./http/notify-agent');
