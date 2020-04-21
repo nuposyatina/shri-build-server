@@ -1,4 +1,6 @@
-const getHttpsAgent = require('./getHttpsAgent');
+const getHttpsAgent = require('../../lib/getHttpsAgent');
+const fetch = require('node-fetch');
+const { port, apiBaseUrl, apiToken } = require('../../server/server-conf.json');
 
 let settings = null;
 
