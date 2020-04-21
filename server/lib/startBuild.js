@@ -1,6 +1,6 @@
 const { port, apiBaseUrl, apiToken } = require('../server-conf.json');
 const fetch = require('node-fetch');
-const getHttpsAgent = require('./getHttpsAgent');
+const getHttpsAgent = require('../../lib/getHttpsAgent');
 
 module.exports = (build) => {
   const { id } = build;

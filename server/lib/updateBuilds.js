@@ -1,4 +1,4 @@
-const DELAY = 5000;
+const DELAY = 15000;
 const BUILD_STATUS = 'Waiting';
 const getBuilds = require('./getBuilds');
 
