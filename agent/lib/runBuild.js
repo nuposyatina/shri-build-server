@@ -1,6 +1,7 @@
 const path = require('path');
 const getSettings = require('./getSettings');
 const getCommands = require('./getCommands');
+const sendBuildResult = require('./sendBuildResult');
 const sh = require('./sh');
 
 const PROJECT_DIR_NAME = 'repo';
@@ -9,7 +10,9 @@ module.exports = async (build) => {
   const settings = await getSettings();
   console.log(settings)
   console.log(build, 'runBuild');
+  const { commitHash, id } = build;
   let log = '';
+  let status = 'Success';
   try {
     const { repoName, mainBranch, buildCommand } = settings.data;
     const { commitHash, id } = build;
@@ -31,7 +34,9 @@ module.exports = async (build) => {
   } catch (err) {
     log += err.message;
     console.error(err);
+    status = 'Fail';
   }
   // Тут дергаю ручку сервера, что сборка закончена, успешно, или нет
-  
+  const buildResult = { id, log, status };
+  return sendBuildResult(buildResult);
 };
