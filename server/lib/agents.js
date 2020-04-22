@@ -12,4 +12,8 @@ const nextAgent = (agents) => {
   return agents.next();
 };
 
-module.exports = { getAgents, setAgent, nextAgent };
+const unregisterAgent = (agent) => {
+  agents.delete(agent);
+}
+
+module.exports = { getAgents, setAgent, nextAgent, unregisterAgent, agents };

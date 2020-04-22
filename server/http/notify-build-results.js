@@ -1,6 +1,4 @@
-const { port, apiBaseUrl, apiToken } = require('../server-conf.json');
-const fetch = require('node-fetch');
-const getHttpsAgent = require('../../lib/getHttpsAgent');
+const finishBuild = require('../lib/finishBuild');
 
 module.exports = (req, res, next) => {
   const { id, status, log } = req.body;
@@ -13,14 +11,6 @@ module.exports = (req, res, next) => {
   };
   const body = JSON.stringify(buildResult);
   console.log('br', body);
-  fetch(`${apiBaseUrl}build/finish`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiToken}`,
-      'Content-Type': 'application/json'
-    },
-    agent: getHttpsAgent(),
-    body
-  }).then(response => console.log(response.status, 'status'));
+  finishBuild(body);
   res.send({ ok: true });
 };

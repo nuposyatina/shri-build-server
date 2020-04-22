@@ -1,4 +1,4 @@
-const { port, apiBaseUrl, apiToken } = require('../server-conf.json');
+const { apiBaseUrl, apiToken } = require('../server-conf.json');
 const fetch = require('node-fetch');
 const getHttpsAgent = require('../../lib/getHttpsAgent');
 
@@ -19,5 +19,5 @@ module.exports = (build) => {
     agent: getHttpsAgent(),
     body
   })
-  .then(result => console.log(result.status, 'status'));
+  .then(result => console.log(result.status, 'отправили в БД инфу о старте билда'));
 }

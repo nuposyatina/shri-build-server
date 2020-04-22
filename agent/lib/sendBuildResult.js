@@ -1,14 +1,13 @@
-const { serverHost, serverPort } = require('../agent-conf.json');
-const fetch = require('node-fetch');
+const config = require('../agent-conf.json');
+const notifyBuildResult = require('./notifyBuildResult');
+const notifyAgent = require('./notifyAgent');
 
-module.exports = (buildResult) => {
+module.exports = async (buildResult) => {
   const body = JSON.stringify(buildResult);
-  return fetch(`http://${serverHost}:${serverPort}/notify-build-result`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body
-  }).then(result => console.log('sbr', result.status));
+  const res = await notifyBuildResult(body);
+  console.log(res)
+  if (res === 200) {
+    notifyAgent(config);
+  }
   //TODO: сделать проверку статуса ответа и переотправку в случае ошибки
 };
