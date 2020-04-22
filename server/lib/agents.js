@@ -1,15 +1,15 @@
 const agents = new Map();
 
 const getAgents = () => {
-  return Array.from(agents.values());
+  return agents.values();
 };
 
 const setAgent = (agent) => {
   agents.set(`${agent.host}:${agent.port}`, agent);
 };
 
-const nextAgent = () => {
-  
-}
+const nextAgent = (agents) => {
+  return agents.next();
+};
 
-module.exports = { getAgents, setAgent };
+module.exports = { getAgents, setAgent, nextAgent };

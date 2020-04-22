@@ -1,11 +1,10 @@
-const { getAgents } = require('./agents');
+const { nextAgent } = require('./agents');
 const fetch = require('node-fetch');
 
-module.exports = (build) => {
-  const agents = getAgents();
-  if (!agents.length) return;
-  const agent = agents[0];
-  return fetch(`http://${agent.host}:${agent.port}/build`, {
+module.exports = (build, agents) => {
+  const { value, done } = nextAgent(agents);
+  if (done) return;
+  return fetch(`http://${value.host}:${value.port}/build`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

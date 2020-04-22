@@ -10,12 +10,12 @@ module.exports = async (build) => {
   const settings = await getSettings();
   console.log(settings)
   console.log(build, 'runBuild');
-  const { commitHash, id } = build;
+  const { id } = build;
   let log = '';
   let status = 'Success';
   try {
     const { repoName, mainBranch, buildCommand } = settings.data;
-    const { commitHash, id } = build;
+    const { commitHash } = build;
     const rootDir = path.join(__dirname, '../');
     await sh('rm', ['-rf', PROJECT_DIR_NAME], { cwd: rootDir });
     await sh('git', ['clone', '-b', mainBranch, '--single-branch', `https://github.com/${repoName}`, PROJECT_DIR_NAME], { cwd: rootDir });
