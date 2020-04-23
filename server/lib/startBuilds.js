@@ -8,13 +8,13 @@ module.exports = async (builds) => {
   console.log('Получаем список агентов')
   const agents = getAgents();
   console.log('Перебираем билды')
-  builds.forEach(async (build) => {
+  for (const build of builds) {
     // Запрос к API Агента
     // Внутри можно получить и следующий агент, как раз
     const { ok } = await runBuild(build, agents);
     // // Запрос к API БД, если билд был отправлен собираться на агент
     if (ok) await startBuild(build);
     if (!ok) console.log('Нет свободных агентов =(')
-  });
+  }
 // });
 };

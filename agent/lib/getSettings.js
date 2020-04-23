@@ -17,6 +17,5 @@ module.exports = async () => {
     throw new Error('Can\'t get settings');
   }
 
-  settings = await response.json();
-  return settings;
+  return response.json();
 };
