@@ -3,3 +3,6 @@ run-server:
 
 run-agent:
 	node agent/index.js
+
+run-agent-2:
+	node agent-2/index.js

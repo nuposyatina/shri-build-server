@@ -7,13 +7,11 @@ const sh = require('./sh');
 const PROJECT_DIR_NAME = 'repo';
 
 module.exports = async (build) => {
-  const settings = await getSettings();
-  console.log(settings)
-  console.log(build, 'runBuild');
   const { id } = build;
   let log = '';
   let status = 'Success';
   try {
+    const settings = await getSettings();
     const { repoName, mainBranch, buildCommand } = settings.data;
     const { commitHash } = build;
     const rootDir = path.join(__dirname, '../');
@@ -25,12 +23,12 @@ module.exports = async (build) => {
     console.info('чекаут');
     await sh('npm', ['install'], { cwd: buildDir });
     console.info('модули установлены');
-    console.log(buildCommand);
+    console.info(`Запускаю команду билда: ${buildCommand}`);
     const commands = getCommands(buildCommand);
     for (const command of commands) {
       log += await sh(command.main, command.args, { cwd: buildDir });
     }
-    console.info('еще и билд прошел');
+    console.info('еще и билд прошел, красота :)');
   } catch (err) {
     log += err.message;
     console.error(err);

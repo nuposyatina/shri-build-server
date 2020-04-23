@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 const getHttpsAgent = require('../../lib/getHttpsAgent');
 
 module.exports = async (buildResult) => {
-  //TODO: добавить обработку ошибок
   const response = await fetch(`${apiBaseUrl}build/finish`, {
     method: 'POST',
     headers: {

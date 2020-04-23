@@ -8,7 +8,7 @@ const startBuild = async (build, count = 0) => {
   });
   try {
     const status = await reportStart(body);
-    console.info(status, 'отправили в БД инфу о старте билда')
+    console.info(`Отправили в БД инфу о старте билда: ${status}`);
   } catch (error) {
     console.error(error);
     if (count >= 3) return;
