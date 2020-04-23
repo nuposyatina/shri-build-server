@@ -1,10 +1,10 @@
-const { port, apiBaseUrl, apiToken } = require('../server-conf.json');
+const { apiBaseUrl, apiToken } = require('../server-conf.json');
 const fetch = require('node-fetch');
 const getHttpsAgent = require('../../lib/getHttpsAgent');
 
 module.exports = async (buildResult) => {
   //TODO: добавить обработку ошибок
-  return fetch(`${apiBaseUrl}build/finish`, {
+  const response = await fetch(`${apiBaseUrl}build/finish`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${apiToken}`,
@@ -12,5 +12,9 @@ module.exports = async (buildResult) => {
     },
     agent: getHttpsAgent(),
     body: buildResult
-  }).then(response => console.log(response.status, 'финиш'));
+  });
+  if (response.status !== 200) {
+    throw new Error(`При изменении статуса билда возникла ошибка ${response.status}`);
+  }
+  return response.status;
 }

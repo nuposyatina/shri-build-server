@@ -11,9 +11,6 @@ module.exports = function sh(command, args, options) {
     child.stdout.on('data', onData);
     child.stderr.on('data', onData);
 
-    // child.stdout.pipe(process.stdout);
-    // child.stderr.pipe(process.stderr);
-
     child.once('exit', (code) => {
       if (code > 0) {
         return reject(new Error(out));

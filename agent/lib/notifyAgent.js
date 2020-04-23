@@ -1,13 +1,17 @@
-const fetch = require('node-fetch');
+const sendNotify = require('./sendNotify');
+const { host, port } = require('../agent-conf.json');
 
-module.exports = ({ serverHost, serverPort, port, host }) => {
-  const body = JSON.stringify({ host, port });
-  return fetch(`http://${serverHost}:${serverPort}/notify-agent`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body
-  })
-  //TODO: сделать проверку статуса ответа и переотправку в случае ошибки
-};
+const notifyAgent = async (count = 0) => {
+  try {
+    const body = JSON.stringify({ host, port });
+    await sendNotify(body);
+  } catch (error) {
+    console.error(error);
+    if (count >= 3) return;
+    count += 1;
+    console.info('Регистрация агента не удалась. Пробуем повторить запрос');
+    return notifyAgent(count);
+  }
+}
+
+module.exports = notifyAgent;

@@ -9,5 +9,5 @@ module.exports = (body) => {
       'Content-Type': 'application/json'
     },
     body
-  }).then(result => result.status);
+  }).then(result => console.info(`Результат обновления статуса билда: ${result}`));
 }
