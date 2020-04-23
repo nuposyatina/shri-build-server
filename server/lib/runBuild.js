@@ -6,7 +6,7 @@ module.exports = async (build, agents) => {
   console.log('получаем текущее значение агента', value, done)
   if (done) return ({ ok: false });
   console.log(`агенты еще не закончились, запускаем билд на агенте с портом ${value.port}`)
-  await unregisterAgent(value);
+  await unregisterAgent(`${value.host}:${value.port}`);
   console.log('Убрали агента из списка зарегистрированных')
   return fetch(`http://${value.host}:${value.port}/build`, {
     method: 'POST',
